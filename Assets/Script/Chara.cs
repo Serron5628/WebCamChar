@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonPush : MonoBehaviour
+public class Chara : MonoBehaviour
 {
     private int a = -1;
     private int b = -1;
@@ -12,18 +12,38 @@ public class ButtonPush : MonoBehaviour
     private string all = "";
     // Start is called before the first frame update
 
+    Vector3 velocity;
+
     bool charaInputFlag = false;
 
     bool hitFlag1 = false;
     bool hitFlag2 = false;
 
-    public GameObject chara_object = null;
+    public GameObject target1;
+    public GameObject target2;
+    public GameObject target3;
+    public GameObject target4;
+    public GameObject target5;
+    public GameObject target6;
+    public GameObject target7;
+    public GameObject target8;
+    public GameObject target9;
+    public GameObject target10;
+    public GameObject target11;
+    public GameObject target12;
+    public GameObject target13;
+    public GameObject target14;
+    public GameObject target15;
+    public GameObject target16;
+    public GameObject target17;
+    public GameObject target18;
+    public GameObject target19;
+    public GameObject target20;
 
     void Update()
     {
-        Text chara_text = chara_object.GetComponent<Text>();
 
-        if (hitFlag1)
+        /*if (hitFlag1)
         {
             //母音選択から子音選択に戻った際に文字の入力を確定する
             if (charaInputFlag)
@@ -46,7 +66,7 @@ public class ButtonPush : MonoBehaviour
 
             //文字入力の結果を表示
             Debug.Log(all + chara[Mathf.Max(a, 0), Mathf.Max(b, 0)]);
-            chara_text.text = all + chara[Mathf.Max(a, 0), Mathf.Max(b, 0)];
+            //chara_text.text = all + chara[Mathf.Max(a, 0), Mathf.Max(b, 0)];
         }
 
         if (hitFlag2)
@@ -65,11 +85,110 @@ public class ButtonPush : MonoBehaviour
 
             //文字を表示
             Debug.Log(all + chara[Mathf.Max(a, 0), Mathf.Max(b, 0)]);
-            chara_text.text = all + chara[Mathf.Max(a, 0), Mathf.Max(b, 0)];
+            //chara_text.text = all + chara[Mathf.Max(a, 0), Mathf.Max(b, 0)];
+        }*/
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("yes");
+        if (charaInputFlag)
+        {
+            all += chara[a, b];
+            Debug.Log(all);
+            charaInputFlag = false;
         }
 
-
-
+        if (other.gameObject == target1)
+        {
+            a = 0;
+        }
+        else if (other.gameObject == target2)
+        {
+            a = 1;
+        }
+        else if (other.gameObject == target3)
+        {
+            a = 2;
+        }
+        else if (other.gameObject == target4)
+        {
+            a = 3;
+        }
+        else if (other.gameObject == target5)
+        {
+            a = 4;
+        }
+        else if (other.gameObject == target6)
+        {
+            b = 0;
+            charaInputFlag = true;
+        }
+        else if (other.gameObject == target7)
+        {
+            b = 1;
+            charaInputFlag = true;
+        }
+        else if (other.gameObject == target8)
+        {
+            b = 2;
+            charaInputFlag = true;
+        }
+        else if (other.gameObject == target9)
+        {
+            b = 3;
+            charaInputFlag = true;
+        }
+        else if (other.gameObject == target10)
+        {
+            b = 4;
+            charaInputFlag = true;
+        }
+        else if (other.gameObject == target11)
+        {
+            a = 5;
+        }
+        else if (other.gameObject == target12)
+        {
+            a = 6;
+        }
+        else if (other.gameObject == target13)
+        {
+            a = 7;
+        }
+        else if (other.gameObject == target14)
+        {
+            a = 8;
+        }
+        else if (other.gameObject == target15)
+        {
+            a = 9;
+        }
+        else if (other.gameObject == target16)
+        {
+            b = 0;
+            charaInputFlag = true;
+        }
+        else if (other.gameObject == target17)
+        {
+            b = 1;
+            charaInputFlag = true;
+        }
+        else if (other.gameObject == target18)
+        {
+            b = 2;
+            charaInputFlag = true;
+        }
+        else if (other.gameObject == target19)
+        {
+            b = 3;
+            charaInputFlag = true;
+        }
+        else if (other.gameObject == target20)
+        {
+            b = 4;
+            charaInputFlag = true;
+        }
     }
 
     static string[,] Nihongo()

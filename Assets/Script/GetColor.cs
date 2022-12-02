@@ -16,7 +16,6 @@ public class GetColor : MonoBehaviour
     private int width = 640;
     private int height = 360;
 
-
     private float second;
 
     private bool playFlag1;
@@ -66,7 +65,7 @@ public class GetColor : MonoBehaviour
             Debug.Log("2");
         }
 
-        if(!(playFlag1) && !(playFlag2) && !(finish) && second > 15.0f)
+        if(!playFlag1 && !playFlag2 && !finish)
         {
             for(int i = 0; i < height; i++)
             {
@@ -91,6 +90,7 @@ public class GetColor : MonoBehaviour
                         }
                         else if (!(numberX[numberX.Count-1] == (float)(-(j / 10)) && numberY[numberY.Count-1] == (float)(36 - (i / 10))))
                         {
+                            Debug.Log(numberX[numberX.Count - 1] + ":" + (float)(-(j / 10)));
                             numberX.Add((float)(-(j / 10)));
                             numberY.Add((float)(36 - (i / 10)));
                         }
@@ -103,18 +103,26 @@ public class GetColor : MonoBehaviour
         }
 
 
-        for(int i = 0; i < numberX.Count; i ++)
+        /*for(int i = 0; i < numberX.Count; i ++)
         {
             Debug.Log(numberX[i] + ":" + numberY[i]);
             Vector3 pos = new Vector3(numberX[i], 1, numberY[i]);
             Instantiate(cube, pos, Quaternion.identity);
+        }*/
+
+        if (finish)
+        {
+            Debug.Log(numberX[numberX.Count - 1] + ":" + numberY[numberY.Count - 1]);
+            Vector3 pos = new Vector3(numberX[numberX.Count - 1], 1, numberY[numberY.Count - 1]);
+            Instantiate(cube, pos, Quaternion.identity);
+            Destroy(this);
         }
 
 
 
-        //Vector3 mousePos = Input.mousePosition;
-        //mouse = texture2DA.GetPixel((int)mousePos.x, (int)mousePos.y);
-        //Debug.Log(mouse);
+        /*Vector3 mousePos = Input.mousePosition;
+        mouse = texture2DA.GetPixel((int)mousePos.x, (int)mousePos.y);
+        Debug.Log((int)mousePos.x + ":" + (int)mousePos.y + ":" + mouse);*/
         //(int)(mousePos.x)はy系の成分
 
     }
