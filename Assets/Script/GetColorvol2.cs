@@ -10,6 +10,7 @@ public class GetColorvol2 : MonoBehaviour
     public Color mouse;
 
     GameObject foot;
+    GameObject foot2;
 
     Texture2D texture2D = null;
     Texture2D texture2DA = null;
@@ -39,6 +40,7 @@ public class GetColorvol2 : MonoBehaviour
     void Start()
     {
         foot = GameObject.Find("footPos");
+        foot2 = GameObject.Find("footPos2");
 
         second = 0;
         targetTime = 8.0f;
@@ -77,31 +79,35 @@ public class GetColorvol2 : MonoBehaviour
 
             for (int i = 0; i < height; i++)
             {
-                for (int j = 0; j < width; j++)
+                for (int j = 0; j < width/2; j++)
                 {
-                    if (texture2DA.GetPixel(j, height - i).r > 0.9 && texture2DA.GetPixel(j, height - i).g > 0.9 && texture2DA.GetPixel(j, height - i).b > 0.9)
-                    {
-                        whiteFlag1 = true;
-                        //Debug.Log(j + ":" + (height - i) + ":" + "1");
-                    }
+                    
                     if (texture2DB.GetPixel(j, height - i).r > 0.9 && texture2DB.GetPixel(j, height - i).g > 0.9 && texture2DB.GetPixel(j, height - i).b > 0.9)
                     {
-                        whiteFlag2 = true;
-                        //Debug.Log(j + ":" + (height - i) + ":" + "2");
-                    }
-
-                    if (whiteFlag1 ^ whiteFlag2)
-                    {
+                        whiteFlag1 = true;
                         Vector3 pos = new Vector3((float)(-j / 10), 1.0f, (float)(i / 10));
                         foot.transform.position = pos;
                         targetTime += 1.0f;
                         break;
+                        //Debug.Log(j + ":" + (height - i) + ":" + "2");
                     }
+
+                    /*if (texture2DB.GetPixel(j + width/2, height - i).r > 0.9 && texture2DB.GetPixel(j + width / 2, height - i).g > 0.9 && texture2DB.GetPixel(j + width / 2, height - i).b > 0.9)
+                    {
+                        whiteFlag2 = true;
+                        Vector3 pos = new Vector3((float)(-j / 10), 1.0f, (float)(i / 10));
+                        foot2.transform.position = pos;
+                        targetTime += 1.0f;
+                        break;
+                        //Debug.Log(j + ":" + (height - i) + ":" + "2");
+                    }*/
+
+                   
                     whiteFlag1 = false;
                     whiteFlag2 = false;
                 }
 
-                if (whiteFlag1 ^ whiteFlag2)
+                if (whiteFlag1)
                 {
                     target1.SetActive(true);
                     target2.SetActive(true);
