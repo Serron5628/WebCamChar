@@ -66,6 +66,9 @@ public class Chara : MonoBehaviour
     private float[] time = new float[10];
     private int count = 0;
 
+    [SerializeField] GameObject playText;
+    private string randText;
+
     private void Start()
     {
         path = Application.persistentDataPath + "/test.txt";
