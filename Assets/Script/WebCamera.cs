@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 public class WebCamera : MonoBehaviour
 {
-    int width = 640;
-    int height = 360;
+    int width = 1280;
+    int height = 720;
     int fps = 30;
 
     WebCamTexture webcamTexture;

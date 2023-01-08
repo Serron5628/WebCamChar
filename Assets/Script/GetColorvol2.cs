@@ -16,8 +16,8 @@ public class GetColorvol2 : MonoBehaviour
     Texture2D texture2DA = null;
     Texture2D texture2DB = null;
 
-    private int width = 640;
-    private int height = 360;
+    private int width = 1280;
+    private int height = 720;
 
     private float second;
     private float targetTime;
@@ -33,8 +33,7 @@ public class GetColorvol2 : MonoBehaviour
     List<float> numberY = new List<float>();
 
     [SerializeField] GameObject cube;
-    [SerializeField] GameObject target1;
-    [SerializeField] GameObject target2;
+    [SerializeField] GameObject UI;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +42,7 @@ public class GetColorvol2 : MonoBehaviour
         foot2 = GameObject.Find("footPos2");
 
         second = 0;
-        targetTime = 8.0f;
+        targetTime = 3.0f;
         playFlag1 = true;
         playFlag2 = true;
         finish = false;
@@ -55,123 +54,58 @@ public class GetColorvol2 : MonoBehaviour
     private void OnPostRender()
     {
         second += Time.deltaTime;
-        if (second > 5.0f && playFlag1)
-        {
-            texture2DA = new Texture2D(width, height, TextureFormat.RGB24, false);
-            texture2DA.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-            texture2DA.Apply();
-            All1 = texture2DA.GetPixels(0, 0, width, height);
-            playFlag1 = false;
-            Debug.Log("1");
-        }
 
         if(second > targetTime)
         {
-            target1.SetActive(false);
-            target2.SetActive(false);
+            UI.SetActive(false);
 
             whiteFlag1 = false;
             whiteFlag2 = false;
             texture2DB = new Texture2D(width, height, TextureFormat.RGB24, false);
             texture2DB.ReadPixels(new Rect(0, 0, width, height), 0, 0);
             texture2DB.Apply();
-            Debug.Log("2");
 
             for (int i = 0; i < height; i++)
             {
                 for (int j = 0; j < width/2; j++)
                 {
-                    
                     if (texture2DB.GetPixel(j, height - i).r > 0.9 && texture2DB.GetPixel(j, height - i).g > 0.9 && texture2DB.GetPixel(j, height - i).b > 0.9)
                     {
                         whiteFlag1 = true;
-                        Vector3 pos = new Vector3((float)(-j / 10), 1.0f, (float)(i / 10));
+                        Vector3 pos = new Vector3((float)(-j / 20) - 2.0f, 1.0f, (float)(i / 20));
                         foot.transform.position = pos;
-                        targetTime += 1.0f;
                         break;
-                        //Debug.Log(j + ":" + (height - i) + ":" + "2");
                     }
-
-                    /*if (texture2DB.GetPixel(j + width/2, height - i).r > 0.9 && texture2DB.GetPixel(j + width / 2, height - i).g > 0.9 && texture2DB.GetPixel(j + width / 2, height - i).b > 0.9)
-                    {
-                        whiteFlag2 = true;
-                        Vector3 pos = new Vector3((float)(-j / 10), 1.0f, (float)(i / 10));
-                        foot2.transform.position = pos;
-                        targetTime += 1.0f;
-                        break;
-                        //Debug.Log(j + ":" + (height - i) + ":" + "2");
-                    }*/
-
-                   
-                    whiteFlag1 = false;
-                    whiteFlag2 = false;
                 }
 
                 if (whiteFlag1)
                 {
-                    target1.SetActive(true);
-                    target2.SetActive(true);
                     break;
                 }
             }
-        }
 
-        /*if (!playFlag1 && !playFlag2 && !finish)
-        {
             for (int i = 0; i < height; i++)
             {
-                for (int j = 0; j < width; j++)
+                for (int j = 0; j < width / 2; j++)
                 {
-                    if (texture2DA.GetPixel(j, height - i).r > 0.9 && texture2DA.GetPixel(j, height - i).g > 0.9 && texture2DA.GetPixel(j, height - i).b > 0.9)
-                    {
-                        whiteFlag1 = true;
-                    }
-                    if (texture2DB.GetPixel(j, height - i).r > 0.9 && texture2DB.GetPixel(j, height - i).g > 0.9 && texture2DB.GetPixel(j, height - i).b > 0.9)
+                    if (texture2DB.GetPixel(j + width / 2, height - i).r > 0.9 && texture2DB.GetPixel(j + width / 2, height - i).g > 0.9 && texture2DB.GetPixel(j + width / 2, height - i).b > 0.9)
                     {
                         whiteFlag2 = true;
-                    }
-
-
-                    if (whiteFlag1 ^ whiteFlag2)
-                    {
-                        Vector3 pos = new Vector3((float)(-j / 10), 1.0f, (float)(i / 10));
-                        foot.transform.position = pos;
-                        targetTime += 2.0f;
+                        Vector3 pos2 = new Vector3((float)(-(j + width / 2) / 20), 1.0f, (float)(i / 20));
+                        foot2.transform.position = pos2;
                         break;
                     }
-                    whiteFlag1 = false;
-                    whiteFlag2 = false;
                 }
-                if (whiteFlag1 ^ whiteFlag2)
+
+                if (whiteFlag2)
                 {
                     break;
                 }
             }
-        }*/
 
-
-        /*for(int i = 0; i < numberX.Count; i ++)
-        {
-            Debug.Log(numberX[i] + ":" + numberY[i]);
-            Vector3 pos = new Vector3(numberX[i], 1, numberY[i]);
-            Instantiate(cube, pos, Quaternion.identity);
-        }*/
-
-        /*if (finish)
-        {
-            Debug.Log(numberX[numberX.Count - 1] + ":" + numberY[numberY.Count - 1]);
-            Vector3 pos = new Vector3(numberX[numberX.Count - 1], 1, numberY[numberY.Count - 1]);
-            Instantiate(cube, pos, Quaternion.identity);
-            Destroy(this);
-        }*/
-
-
-
-        /*Vector3 mousePos = Input.mousePosition;
-        mouse = texture2DA.GetPixel((int)mousePos.x, (int)mousePos.y);
-        Debug.Log((int)mousePos.x + ":" + (int)mousePos.y + ":" + mouse);*/
-        //(int)(mousePos.x)はy系の成分
-
+            UI.SetActive(true);
+            targetTime += 0.3f;
+        }
     }
 
     private Color[] AllPixels()

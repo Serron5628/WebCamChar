@@ -2,22 +2,48 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class Chara : MonoBehaviour
 {
-    private int a = -1;
-    private int b = -1;
+    public int a = -1;
+    public int b = -1;
 
     private string[,] chara = Nihongo();
-    private string all = "";
+    public string all = "";
     // Start is called before the first frame update
 
-    Vector3 velocity;
+    public bool charaInputFlag1;
+    public bool charaInputFlag2;
 
-    bool charaInputFlag = false;
+    string path;
 
-    bool hitFlag1 = false;
-    bool hitFlag2 = false;
+    //SetActive用
+    [SerializeField] GameObject AN;
+    [SerializeField] GameObject HW;
+    [SerializeField] GameObject AOL;
+    [SerializeField] GameObject AOR;
+    [SerializeField] GameObject sub;
+
+    [SerializeField] GameObject an;
+    [SerializeField] GameObject hw;
+    [SerializeField] GameObject aol;
+    [SerializeField] GameObject aor;
+    [SerializeField] GameObject yyy;
+    [SerializeField] GameObject www;
+
+    //以下テキスト
+    [SerializeField] GameObject h;
+    [SerializeField] GameObject m;
+    [SerializeField] GameObject y;
+    [SerializeField] GameObject r;
+    [SerializeField] GameObject w;
+
+    [SerializeField] GameObject aa;
+    [SerializeField] GameObject i;
+    [SerializeField] GameObject u;
+    [SerializeField] GameObject e;
+    [SerializeField] GameObject o;
 
     public GameObject target1;
     public GameObject target2;
@@ -29,165 +55,296 @@ public class Chara : MonoBehaviour
     public GameObject target8;
     public GameObject target9;
     public GameObject target10;
-    public GameObject target11;
-    public GameObject target12;
-    public GameObject target13;
-    public GameObject target14;
-    public GameObject target15;
-    public GameObject target16;
-    public GameObject target17;
-    public GameObject target18;
-    public GameObject target19;
-    public GameObject target20;
 
-    void Update()
+    public GameObject target21;
+    public GameObject target22;
+    public GameObject target23;
+
+    public GameObject kettei1;
+
+    private float timeCount = 0.0f;
+    private float[] time = new float[10];
+    private int count = 0;
+
+    private void Start()
     {
+        path = Application.persistentDataPath + "/test.txt";
 
-        /*if (hitFlag1)
+        a = -1;
+        b = -1;
+        charaInputFlag1 = false;
+        charaInputFlag2 = false;
+        AN.SetActive(true);
+        HW.SetActive(true);
+        AOL.SetActive(true);
+        AOR.SetActive(true);
+        sub.SetActive(false);
+        an.SetActive(true);
+        hw.SetActive(true);
+        aol.SetActive(true);
+        aor.SetActive(true);
+        yyy.SetActive(false);
+        www.SetActive(false);
+
+        h.GetComponent<Text>().text = "は";
+        m.GetComponent<Text>().text = "ま";
+        y.GetComponent<Text>().text = "や";
+        r.GetComponent<Text>().text = "ら";
+        w.GetComponent<Text>().text = "わ";
+        aa.GetComponent<Text>().text = "あ";
+        i.GetComponent<Text>().text = "い";
+        u.GetComponent<Text>().text = "う";
+        e.GetComponent<Text>().text = "え";
+        o.GetComponent<Text>().text = "お";
+    }
+
+    private void FixedUpdate()
+    {
+        timeCount += Time.deltaTime;
+        Debug.Log(timeCount);
+
+        if (!(a == -1) && !(b == -1) && charaInputFlag1 && charaInputFlag2)
         {
-            //母音選択から子音選択に戻った際に文字の入力を確定する
-            if (charaInputFlag)
-            {
-                all += chara[Mathf.Max(a, 0), Mathf.Max(b, 0)];
-                a = -1;
-                b = -1;
-                Debug.Log(all);
-                charaInputFlag = false;
-            }
-
-            //「あかさたな」の順番で子音を選択する
-            a++;
-
-            //「わ」の時に「あ」に戻す
-            if(chara[Mathf.Max(a, 0), Mathf.Max(b, 0)] == null)
-            {
-                a = 0;
-            }
-
-            //文字入力の結果を表示
-            Debug.Log(all + chara[Mathf.Max(a, 0), Mathf.Max(b, 0)]);
-            //chara_text.text = all + chara[Mathf.Max(a, 0), Mathf.Max(b, 0)];
+            all += chara[a, b];
+            Debug.Log(all);
+            Start();
+            time[count] = timeCount;
+            File.AppendAllText(path, time[count].ToString() + "\n");
+            count++;
         }
-
-        if (hitFlag2)
-        {
-            //母音選択を始めたフラグ
-            charaInputFlag = true;
-
-            //「あいうえお」の順番で母音を選択
-            b++;
-
-            //「お」の次とか行って文字がなくなったときに先頭の「あ」に戻ってくる
-            if(chara[Mathf.Max(a, 0), Mathf.Max(b, 0)] == null)
-            {
-                b = 0;
-            }
-
-            //文字を表示
-            Debug.Log(all + chara[Mathf.Max(a, 0), Mathf.Max(b, 0)]);
-            //chara_text.text = all + chara[Mathf.Max(a, 0), Mathf.Max(b, 0)];
-        }*/
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("yes");
-        if (charaInputFlag)
-        {
-            all += chara[a, b];
-            Debug.Log(all);
-            charaInputFlag = false;
-        }
-
         if (other.gameObject == target1)
         {
             a = 0;
+            charaInputFlag1 = false;
+            aa.GetComponent<Text>().text = "あ";
+            i.GetComponent<Text>().text = "い";
+            u.GetComponent<Text>().text = "う";
+            e.GetComponent<Text>().text = "え";
+            o.GetComponent<Text>().text = "お";
+            AN.SetActive(true);
+            HW.SetActive(false);
+            AOL.SetActive(false);
+            AOR.SetActive(true);
+            sub.SetActive(false);
+            an.SetActive(true);
+            hw.SetActive(false);
+            aol.SetActive(false);
+            aor.SetActive(true);
+            yyy.SetActive(false);
+            www.SetActive(false);
         }
         else if (other.gameObject == target2)
         {
             a = 1;
+            charaInputFlag1 = false;
+            aa.GetComponent<Text>().text = "か";
+            i.GetComponent<Text>().text = "き";
+            u.GetComponent<Text>().text = "く";
+            e.GetComponent<Text>().text = "け";
+            o.GetComponent<Text>().text = "こ";
+            AN.SetActive(true);
+            HW.SetActive(false);
+            AOL.SetActive(false);
+            AOR.SetActive(true);
+            sub.SetActive(false);
+            an.SetActive(true);
+            hw.SetActive(false);
+            aol.SetActive(false);
+            aor.SetActive(true);
+            yyy.SetActive(false);
+            www.SetActive(false);
         }
         else if (other.gameObject == target3)
         {
             a = 2;
+            charaInputFlag1 = false;
+            aa.GetComponent<Text>().text = "さ";
+            i.GetComponent<Text>().text = "し";
+            u.GetComponent<Text>().text = "す";
+            e.GetComponent<Text>().text = "せ";
+            o.GetComponent<Text>().text = "そ";
+            AN.SetActive(true);
+            HW.SetActive(false);
+            AOL.SetActive(false);
+            AOR.SetActive(true);
+            sub.SetActive(false);
+            an.SetActive(true);
+            hw.SetActive(false);
+            aol.SetActive(false);
+            aor.SetActive(true);
+            yyy.SetActive(false);
+            www.SetActive(false);
         }
         else if (other.gameObject == target4)
         {
             a = 3;
+            charaInputFlag1 = false;
+            aa.GetComponent<Text>().text = "た";
+            i.GetComponent<Text>().text = "ち";
+            u.GetComponent<Text>().text = "つ";
+            e.GetComponent<Text>().text = "て";
+            o.GetComponent<Text>().text = "と";
+            AN.SetActive(true);
+            HW.SetActive(false);
+            AOL.SetActive(false);
+            AOR.SetActive(true);
+            sub.SetActive(false);
+            an.SetActive(true);
+            hw.SetActive(false);
+            aol.SetActive(false);
+            aor.SetActive(true);
+            yyy.SetActive(false);
+            www.SetActive(false);
         }
         else if (other.gameObject == target5)
         {
             a = 4;
+            charaInputFlag1 = false;
+            aa.GetComponent<Text>().text = "な";
+            i.GetComponent<Text>().text = "に";
+            u.GetComponent<Text>().text = "ぬ";
+            e.GetComponent<Text>().text = "ね";
+            o.GetComponent<Text>().text = "の";
+            AN.SetActive(true);
+            HW.SetActive(false);
+            AOL.SetActive(false);
+            AOR.SetActive(true);
+            sub.SetActive(false);
+            an.SetActive(true);
+            hw.SetActive(false);
+            aol.SetActive(false);
+            aor.SetActive(true);
+            yyy.SetActive(false);
+            www.SetActive(false);
         }
         else if (other.gameObject == target6)
         {
             b = 0;
-            charaInputFlag = true;
+            charaInputFlag1 = false;
+            h.GetComponent<Text>().text = "は";
+            m.GetComponent<Text>().text = "ま";
+            y.GetComponent<Text>().text = "や";
+            r.GetComponent<Text>().text = "ら";
+            w.GetComponent<Text>().text = "わ";
+            AN.SetActive(false);
+            HW.SetActive(true);
+            AOL.SetActive(true);
+            AOR.SetActive(false);
+            sub.SetActive(false);
+            an.SetActive(false);
+            hw.SetActive(true);
+            aol.SetActive(true);
+            aor.SetActive(false);
+            yyy.SetActive(false);
+            www.SetActive(false);
         }
         else if (other.gameObject == target7)
         {
             b = 1;
-            charaInputFlag = true;
+            charaInputFlag1 = false;
+            h.GetComponent<Text>().text = "ひ";
+            m.GetComponent<Text>().text = "み";
+            y.GetComponent<Text>().text = "　";
+            r.GetComponent<Text>().text = "り";
+            w.GetComponent<Text>().text = "　";
+            AN.SetActive(false);
+            HW.SetActive(true);
+            AOL.SetActive(true);
+            AOR.SetActive(false);
+            sub.SetActive(false);
+            an.SetActive(false);
+            hw.SetActive(true);
+            aol.SetActive(true);
+            aor.SetActive(false);
+            yyy.SetActive(false);
+            www.SetActive(false);
         }
         else if (other.gameObject == target8)
         {
             b = 2;
-            charaInputFlag = true;
+            charaInputFlag1 = false;
+            h.GetComponent<Text>().text = "ふ";
+            m.GetComponent<Text>().text = "む";
+            y.GetComponent<Text>().text = "ゆ";
+            r.GetComponent<Text>().text = "る";
+            w.GetComponent<Text>().text = "　";
+            AN.SetActive(false);
+            HW.SetActive(true);
+            AOL.SetActive(true);
+            AOR.SetActive(false);
+            sub.SetActive(false);
+            an.SetActive(false);
+            hw.SetActive(true);
+            aol.SetActive(true);
+            aor.SetActive(false);
+            yyy.SetActive(false);
+            www.SetActive(false);
         }
         else if (other.gameObject == target9)
         {
             b = 3;
-            charaInputFlag = true;
+            charaInputFlag1 = false;
+            h.GetComponent<Text>().text = "へ";
+            m.GetComponent<Text>().text = "め";
+            y.GetComponent<Text>().text = "　";
+            r.GetComponent<Text>().text = "れ";
+            w.GetComponent<Text>().text = "　";
+            AN.SetActive(false);
+            HW.SetActive(true);
+            AOL.SetActive(true);
+            AOR.SetActive(false);
+            sub.SetActive(false);
+            an.SetActive(false);
+            hw.SetActive(true);
+            aol.SetActive(true);
+            aor.SetActive(false);
+            yyy.SetActive(false);
+            www.SetActive(false);
         }
         else if (other.gameObject == target10)
         {
             b = 4;
-            charaInputFlag = true;
+            charaInputFlag1 = false;
+            h.GetComponent<Text>().text = "ほ";
+            m.GetComponent<Text>().text = "も";
+            y.GetComponent<Text>().text = "よ";
+            r.GetComponent<Text>().text = "ろ";
+            w.GetComponent<Text>().text = "を";
+            AN.SetActive(false);
+            HW.SetActive(true);
+            AOL.SetActive(true);
+            AOR.SetActive(false);
+            sub.SetActive(false);
+            an.SetActive(false);
+            hw.SetActive(true);
+            aol.SetActive(true);
+            aor.SetActive(false);
+            yyy.SetActive(false);
+            www.SetActive(false);
         }
-        else if (other.gameObject == target11)
-        {
-            a = 5;
-        }
-        else if (other.gameObject == target12)
-        {
-            a = 6;
-        }
-        else if (other.gameObject == target13)
-        {
-            a = 7;
-        }
-        else if (other.gameObject == target14)
-        {
-            a = 8;
-        }
-        else if (other.gameObject == target15)
-        {
-            a = 9;
-        }
-        else if (other.gameObject == target16)
+        else if (other.gameObject == target21)
         {
             b = 0;
-            charaInputFlag = true;
+            charaInputFlag1 = false;
         }
-        else if (other.gameObject == target17)
+        else if (other.gameObject == target22)
         {
             b = 1;
-            charaInputFlag = true;
+            charaInputFlag1 = false;
         }
-        else if (other.gameObject == target18)
+        else if (other.gameObject == target23)
         {
             b = 2;
-            charaInputFlag = true;
+            charaInputFlag1 = false;
         }
-        else if (other.gameObject == target19)
+
+        if(other.gameObject == kettei1)
         {
-            b = 3;
-            charaInputFlag = true;
-        }
-        else if (other.gameObject == target20)
-        {
-            b = 4;
-            charaInputFlag = true;
+            charaInputFlag1 = true;
         }
     }
 
