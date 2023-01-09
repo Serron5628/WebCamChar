@@ -104,7 +104,7 @@ public class GetColorvol2 : MonoBehaviour
             }
 
             UI.SetActive(true);
-            targetTime += 0.3f;
+            targetTime += 0.1f;
         }
     }
 
