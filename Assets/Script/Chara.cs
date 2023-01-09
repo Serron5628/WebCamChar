@@ -46,6 +46,9 @@ public class Chara : MonoBehaviour
     [SerializeField] GameObject e;
     [SerializeField] GameObject o;
 
+    [SerializeField] GameObject centerL;
+    [SerializeField] GameObject centerR;
+
     public GameObject target1;
     public GameObject target2;
     public GameObject target3;
@@ -73,7 +76,7 @@ public class Chara : MonoBehaviour
     private void Start()
     {
         path = Application.persistentDataPath + "/test.txt";
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 10; i++)
         {
             int gyou = Random.Range(0, 10);
             if (gyou == 7 || gyou == 9) {
@@ -86,7 +89,10 @@ public class Chara : MonoBehaviour
                 randText += chara[gyou, retsu];
             }
         }
-        Debug.Log(randText);
+        playtext.SetText(randText);
+
+        centerL.GetComponent<Text>().text = randText[0].ToString();
+        centerR.GetComponent<Text>().text = randText[0].ToString();
 
         File.AppendAllText(path, "\n");
 
@@ -155,12 +161,16 @@ public class Chara : MonoBehaviour
         if (!(a == -1) && !(b == -1) && charaInputFlag1 && charaInputFlag2)
         {
             all += chara[a, b];
+            playtext.SetText(randText + "\n" + all);
             Debug.Log(all);
             Set();
             time[count] = timeCount;
             File.AppendAllText(path, time[count].ToString() + ":");
             count++;
-        }else if(charaInputFlag1 && charaInputFlag2)
+            centerL.GetComponent<Text>().text = randText[count].ToString();
+            centerR.GetComponent<Text>().text = randText[count].ToString();
+        }
+        else if(charaInputFlag1 && charaInputFlag2)
         {
             Set();
         }
