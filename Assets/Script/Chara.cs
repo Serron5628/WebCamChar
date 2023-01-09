@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using TMPro;
 
 public class Chara : MonoBehaviour
 {
@@ -66,13 +67,59 @@ public class Chara : MonoBehaviour
     private float[] time = new float[10];
     private int count = 0;
 
-    [SerializeField] GameObject playText;
+    [SerializeField] TextMeshProUGUI playtext;
     private string randText;
 
     private void Start()
     {
         path = Application.persistentDataPath + "/test.txt";
+        for (int i = 0; i < 5; i++)
+        {
+            int gyou = Random.Range(0, 10);
+            if (gyou == 7 || gyou == 9) {
+                int retsu = Random.Range(0, 3);
+                randText += chara[gyou, retsu];
+            }
+            else
+            {
+                int retsu = Random.Range(0, 5);
+                randText += chara[gyou, retsu];
+            }
+        }
+        Debug.Log(randText);
 
+        File.AppendAllText(path, "\n");
+
+        a = -1;
+        b = -1;
+        charaInputFlag1 = false;
+        charaInputFlag2 = false;
+        AN.SetActive(true);
+        HW.SetActive(true);
+        AOL.SetActive(true);
+        AOR.SetActive(true);
+        sub.SetActive(false);
+        an.SetActive(true);
+        hw.SetActive(true);
+        aol.SetActive(true);
+        aor.SetActive(true);
+        yyy.SetActive(false);
+        www.SetActive(false);
+
+        h.GetComponent<Text>().text = "は";
+        m.GetComponent<Text>().text = "ま";
+        y.GetComponent<Text>().text = "や";
+        r.GetComponent<Text>().text = "ら";
+        w.GetComponent<Text>().text = "わ";
+        aa.GetComponent<Text>().text = "あ";
+        i.GetComponent<Text>().text = "い";
+        u.GetComponent<Text>().text = "う";
+        e.GetComponent<Text>().text = "え";
+        o.GetComponent<Text>().text = "お";
+    }
+
+    void Set()
+    {
         a = -1;
         b = -1;
         charaInputFlag1 = false;
@@ -104,17 +151,21 @@ public class Chara : MonoBehaviour
     private void FixedUpdate()
     {
         timeCount += Time.deltaTime;
-        Debug.Log(timeCount);
 
         if (!(a == -1) && !(b == -1) && charaInputFlag1 && charaInputFlag2)
         {
             all += chara[a, b];
             Debug.Log(all);
-            Start();
+            Set();
             time[count] = timeCount;
-            File.AppendAllText(path, time[count].ToString() + "\n");
+            File.AppendAllText(path, time[count].ToString() + ":");
             count++;
+        }else if(charaInputFlag1 && charaInputFlag2)
+        {
+            Set();
         }
+
+
     }
 
     private void OnTriggerEnter(Collider other)

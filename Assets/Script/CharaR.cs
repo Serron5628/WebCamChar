@@ -67,6 +67,18 @@ public class CharaR : MonoBehaviour
 
     private void Start()
     {
+        AN.SetActive(true);
+        HW.SetActive(true);
+        AOL.SetActive(true);
+        AOR.SetActive(true);
+        sub.SetActive(false);
+        an.SetActive(true);
+        hw.SetActive(true);
+        aol.SetActive(true);
+        aor.SetActive(true);
+        yyy.SetActive(false);
+        www.SetActive(false);
+
         aaa.GetComponent<Text>().text = "あ";
         k.GetComponent<Text>().text = "か";
         s.GetComponent<Text>().text = "さ";
@@ -292,6 +304,16 @@ public class CharaR : MonoBehaviour
 
         if(other.gameObject == kettei2)
         {
+            aaa.GetComponent<Text>().text = "あ";
+            k.GetComponent<Text>().text = "か";
+            s.GetComponent<Text>().text = "さ";
+            t.GetComponent<Text>().text = "た";
+            n.GetComponent<Text>().text = "な";
+            aa.GetComponent<Text>().text = "あ";
+            i.GetComponent<Text>().text = "い";
+            u.GetComponent<Text>().text = "う";
+            e.GetComponent<Text>().text = "え";
+            o.GetComponent<Text>().text = "お";
             charaScript.charaInputFlag2 = true;
         }
     }
