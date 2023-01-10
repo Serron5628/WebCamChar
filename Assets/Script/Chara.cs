@@ -90,7 +90,7 @@ public class Chara : MonoBehaviour
          */
         sampleSaveCsv = saveCsv.GetComponent<SampleSaveCsv>();
 
-        path = Application.persistentDataPath + "/test.txt";
+        path = @"Assets/Date/test.txt";
         for (int i = 0; i < 10; i++)
         {
             int gyou = Random.Range(0, 10);
