@@ -69,7 +69,7 @@ public class GetColorvol2 : MonoBehaviour
             {
                 for (int j = 0; j < width/2; j++)
                 {
-                    if (texture2DB.GetPixel(j, height - i).r > 0.9 && texture2DB.GetPixel(j, height - i).g > 0.9 && texture2DB.GetPixel(j, height - i).b > 0.9)
+                    if (texture2DB.GetPixel(j, height - i).r > 0.95 && texture2DB.GetPixel(j, height - i).g > 0.95 && texture2DB.GetPixel(j, height - i).b > 0.95)
                     {
                         whiteFlag1 = true;
                         Vector3 pos = new Vector3((float)(-j / 20) - 2.0f, 1.0f, (float)(i / 20));
@@ -88,7 +88,7 @@ public class GetColorvol2 : MonoBehaviour
             {
                 for (int j = 0; j < width / 2; j++)
                 {
-                    if (texture2DB.GetPixel(j + width / 2, height - i).r > 0.9 && texture2DB.GetPixel(j + width / 2, height - i).g > 0.9 && texture2DB.GetPixel(j + width / 2, height - i).b > 0.9)
+                    if (texture2DB.GetPixel(j + width / 2, height - i).r > 0.95 && texture2DB.GetPixel(j + width / 2, height - i).g > 0.95 && texture2DB.GetPixel(j + width / 2, height - i).b > 0.95)
                     {
                         whiteFlag2 = true;
                         Vector3 pos2 = new Vector3((float)(-(j + width / 2) / 20), 1.0f, (float)(i / 20));

@@ -70,11 +70,26 @@ public class Chara : MonoBehaviour
     private float[] time = new float[10];
     private int count = 0;
 
+    GameObject saveCsv;
+    SampleSaveCsv sampleSaveCsv;
+
     [SerializeField] TextMeshProUGUI playtext;
     private string randText;
 
     private void Start()
     {
+        /**
+         * SaveCsvのスクリプトを参照する
+         * @see https://docs.unity3d.com/ja/current/ScriptReference/GameObject.Find.html
+         */
+        saveCsv = GameObject.Find("SaveCsv");
+
+        /**
+         * コンポーネントを返す
+         * @see https://docs.unity3d.com/ja/current/ScriptReference/GameObject.GetComponent.html
+         */
+        sampleSaveCsv = saveCsv.GetComponent<SampleSaveCsv>();
+
         path = Application.persistentDataPath + "/test.txt";
         for (int i = 0; i < 10; i++)
         {
@@ -162,10 +177,13 @@ public class Chara : MonoBehaviour
         {
             all += chara[a, b];
             playtext.SetText(randText + "\n" + all);
-            Debug.Log(all);
             Set();
-            time[count] = timeCount;
+            time[count] = timeCount - 3.0f;
             File.AppendAllText(path, time[count].ToString() + ":");
+            if(count == 10)
+            {
+                sampleSaveCsv.SaveData(time[0].ToString(), time[1].ToString(), time[2].ToString(), time[3].ToString(), time[4].ToString(), time[5].ToString(), time[6].ToString(), time[7].ToString(), time[8].ToString(), time[9].ToString());
+            }
             count++;
             centerL.GetComponent<Text>().text = randText[count].ToString();
             centerR.GetComponent<Text>().text = randText[count].ToString();
