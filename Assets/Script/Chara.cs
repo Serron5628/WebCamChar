@@ -180,9 +180,10 @@ public class Chara : MonoBehaviour
             Set();
             time[count] = timeCount - 3.0f;
             File.AppendAllText(path, time[count].ToString() + ":");
-            if(count == 10)
+            if(count == 9)
             {
-                sampleSaveCsv.SaveData(time[0].ToString(), time[1].ToString(), time[2].ToString(), time[3].ToString(), time[4].ToString(), time[5].ToString(), time[6].ToString(), time[7].ToString(), time[8].ToString(), time[9].ToString());
+                //sampleSaveCsv.SaveData(time[0].ToString(), time[1].ToString(), time[2].ToString(), time[3].ToString(), time[4].ToString(), time[5].ToString(), time[6].ToString(), time[7].ToString(), time[8].ToString(), time[9].ToString());
+                File.AppendAllText(path, randText + ":" + all);
             }
             count++;
             centerL.GetComponent<Text>().text = randText[count].ToString();
