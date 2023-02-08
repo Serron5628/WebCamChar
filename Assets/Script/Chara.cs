@@ -104,10 +104,10 @@ public class Chara : MonoBehaviour
                 randText += chara[gyou, retsu];
             }
         }
-        playtext.SetText(randText);
+        //playtext.SetText(randText);
 
-        centerL.GetComponent<Text>().text = randText[0].ToString();
-        centerR.GetComponent<Text>().text = randText[0].ToString();
+        //centerL.GetComponent<Text>().text = randText[0].ToString();
+        //centerR.GetComponent<Text>().text = randText[0].ToString();
 
         File.AppendAllText(path, "\n");
 
@@ -176,18 +176,18 @@ public class Chara : MonoBehaviour
         if (!(a == -1) && !(b == -1) && charaInputFlag1 && charaInputFlag2)
         {
             all += chara[a, b];
-            playtext.SetText(randText + "\n" + all);
+            playtext.SetText( "\n" + all);
             Set();
             time[count] = timeCount - 3.0f;
-            File.AppendAllText(path, time[count].ToString() + ":");
+            //File.AppendAllText(path, time[count].ToString() + ":");
             if(count == 9)
             {
                 //sampleSaveCsv.SaveData(time[0].ToString(), time[1].ToString(), time[2].ToString(), time[3].ToString(), time[4].ToString(), time[5].ToString(), time[6].ToString(), time[7].ToString(), time[8].ToString(), time[9].ToString());
                 File.AppendAllText(path, randText + ":" + all);
             }
             count++;
-            centerL.GetComponent<Text>().text = randText[count].ToString();
-            centerR.GetComponent<Text>().text = randText[count].ToString();
+            //centerL.GetComponent<Text>().text = randText[count].ToString();
+            //centerR.GetComponent<Text>().text = randText[count].ToString();
         }
         else if(charaInputFlag1 && charaInputFlag2)
         {
